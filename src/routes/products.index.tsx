@@ -29,14 +29,14 @@ import { type Product } from "@/data/site";
 function ProductsIndex() {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<string>("all");
-  const [products, setProducts] = useState<Product[]>(PRODUCTS);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let activeSub = true;
     getAllProducts().then((list) => {
       if (!activeSub) return;
-      if (list && list.length > 0) {
+      if (list) {
         // Only show Active products on the public site
         setProducts(list.filter((p) => p.status === "Active"));
       }
@@ -98,15 +98,15 @@ function ProductsIndex() {
           </label>
         </div>
 
-        <motion.div layout className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {results.map((p, i) => (
-              <ProductTile key={p.slug} product={p} index={i} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {results.length === 0 && (
+        {loading ? (
+          <div className="flex justify-center py-24">
+            <span className="text-sm text-muted-foreground animate-pulse">Loading products...</span>
+          </div>
+        ) : products.length === 0 ? (
+          <p className="py-24 text-center text-sm text-muted-foreground">
+            No products available.
+          </p>
+        ) : results.length === 0 ? (
           <p className="py-24 text-center text-sm text-muted-foreground">
             Nothing matches that search yet. Try another term or{" "}
             <Link to="/contact" className="nav-underline text-primary">
@@ -114,6 +114,14 @@ function ProductsIndex() {
             </Link>
             .
           </p>
+        ) : (
+          <motion.div layout className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {results.map((p, i) => (
+                <ProductTile key={p.slug} product={p} index={i} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         )}
       </section>
 

@@ -10,8 +10,8 @@ import { ProductTile } from "@/components/products/ProductTile";
 import { getProductBySlug, getProductsByCategory } from "@/lib/db-service";
 
 export const Route = createFileRoute("/product/$slug")({
-  loader: ({ params }) => {
-    const product = productBySlug(params.slug);
+  loader: async ({ params }) => {
+    const product = await getProductBySlug(params.slug);
     if (!product) throw notFound();
     return product;
   },
@@ -67,10 +67,10 @@ function ProductPage() {
     let activeSub = true;
     getProductsByCategory(product.category).then((list) => {
       if (!activeSub) return;
-      if (list && list.length > 0) {
+      if (list) {
         setRelated(list.filter((p) => p.slug !== product.slug && p.status === "Active").slice(0, 3));
       } else {
-        setRelated(PRODUCTS.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 3));
+        setRelated([]);
       }
     });
     return () => {

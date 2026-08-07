@@ -1,9 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { FEATURED } from "@/data/site";
+import { getAllProducts } from "@/lib/db-service";
+import { type Product } from "@/data/site";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProductTile } from "@/components/products/ProductTile";
 
 export function FeaturedProducts() {
+  const [featured, setFeatured] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let activeSub = true;
+    getAllProducts().then((list) => {
+      if (!activeSub) return;
+      if (list) {
+        setFeatured(list.filter((p) => p.featured && p.status === "Active"));
+      }
+      setLoading(false);
+    });
+    return () => {
+      activeSub = false;
+    };
+  }, []);
+
   return (
     <section className="gbl-container py-24 md:py-32">
       <div className="flex flex-wrap items-end justify-between gap-6">
@@ -27,11 +46,21 @@ export function FeaturedProducts() {
         </Reveal>
       </div>
 
-      <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-        {FEATURED.map((p, i) => (
-          <ProductTile key={p.slug} product={p} index={i} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="mt-14 flex justify-center py-10">
+          <span className="text-sm text-muted-foreground animate-pulse">Loading products...</span>
+        </div>
+      ) : featured.length === 0 ? (
+        <div className="mt-14 text-center py-12 border border-dashed border-border rounded-[2rem]">
+          <p className="text-sm text-muted-foreground">No products available.</p>
+        </div>
+      ) : (
+        <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((p, i) => (
+            <ProductTile key={p.slug} product={p} index={i} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

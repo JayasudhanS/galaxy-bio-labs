@@ -47,16 +47,17 @@ function CategoryPage() {
   const data = Route.useLoaderData();
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProducts(productsByCategory(category));
-
+    setLoading(true);
     let activeSub = true;
     getProductsByCategory(category).then((list) => {
       if (!activeSub) return;
-      if (list && list.length > 0) {
+      if (list) {
         setProducts(list.filter((p) => p.status === "Active"));
       }
+      setLoading(false);
     });
     return () => {
       activeSub = false;
@@ -108,16 +109,24 @@ function CategoryPage() {
           </label>
         </div>
 
-        <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((p, i) => (
-            <ProductTile key={p.slug} product={p} index={i} />
-          ))}
-        </div>
-
-        {items.length === 0 && (
+        {loading ? (
+          <div className="flex justify-center py-24">
+            <span className="text-sm text-muted-foreground animate-pulse">Loading products...</span>
+          </div>
+        ) : products.length === 0 ? (
+          <p className="py-24 text-center text-sm text-muted-foreground">
+            No products available.
+          </p>
+        ) : items.length === 0 ? (
           <p className="py-24 text-center text-sm text-muted-foreground">
             No products in this module match that search.
           </p>
+        ) : (
+          <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((p, i) => (
+              <ProductTile key={p.slug} product={p} index={i} />
+            ))}
+          </div>
         )}
       </section>
 

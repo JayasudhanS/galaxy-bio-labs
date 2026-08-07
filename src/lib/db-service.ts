@@ -15,27 +15,8 @@ import { PRODUCTS, type Product } from "../data/site";
 const COLLECTION_NAME = "products";
 
 export async function seedProductsIfEmpty() {
-  if (typeof window === "undefined") return;
-  try {
-    const db = getFirebaseDb();
-    const snap = await getDocs(collection(db, COLLECTION_NAME));
-    if (snap.empty) {
-      console.log("[DbService] Firestore products collection is empty. Seeding defaults...");
-      const batch = writeBatch(db);
-      for (const p of PRODUCTS) {
-        const ref = doc(db, COLLECTION_NAME, p.slug);
-        batch.set(ref, {
-          ...p,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        });
-      }
-      await batch.commit();
-      console.log("[DbService] Seeding complete.");
-    }
-  } catch (err) {
-    console.error("[DbService] Failed to seed products:", err);
-  }
+  // Seeding disabled to ensure Firestore is the sole source of truth.
+  return;
 }
 
 export async function getAllProducts(): Promise<Product[]> {
