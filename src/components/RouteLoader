@@ -1,0 +1,23 @@
+/**
+ * Shown by the router while a route is pending — i.e. while its code-split
+ * chunk is being fetched and/or its loader is resolving. Routes in this app
+ * are automatically code-split by the TanStack Start plugin, so without a
+ * pendingComponent the <Outlet /> renders nothing for a beat on navigation,
+ * refresh, and browser back/forward — which is what caused the intermittent
+ * "blank page / navbar only" bug. This keeps something premium-feeling on
+ * screen at all times instead.
+ */
+export function RouteLoader() {
+  return (
+    <div className="gbl-container flex min-h-[60vh] flex-col gap-6 py-24">
+      <div className="skeleton-shimmer h-8 w-40 rounded-full" />
+      <div className="skeleton-shimmer h-14 w-full max-w-xl rounded-2xl md:h-16" />
+      <div className="skeleton-shimmer h-4 w-full max-w-md rounded-full" />
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="skeleton-shimmer h-40 rounded-3xl" />
+        <div className="skeleton-shimmer h-40 rounded-3xl" />
+        <div className="skeleton-shimmer hidden h-40 rounded-3xl sm:block" />
+      </div>
+    </div>
+  );
+}
