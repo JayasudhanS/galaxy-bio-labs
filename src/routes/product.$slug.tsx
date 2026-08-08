@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, Check } from "lucide-react";
-import { MODULES, PRODUCTS, productBySlug, type Product } from "@/data/site";
+import { MODULES, type Product } from "@/data/site";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { Reveal } from "@/components/motion/Reveal";
 import { useQuote } from "@/components/quote/QuoteProvider";
@@ -130,9 +130,8 @@ function ProductPage() {
                   key={img + i}
                   onClick={() => setActive(i)}
                   aria-label={`View image ${i + 1}`}
-                  className={`relative size-20 overflow-hidden rounded-xl transition-all duration-500 ${
-                    i === active ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : "opacity-60 hover:opacity-100"
-                  }`}
+                  className={`relative size-20 overflow-hidden rounded-xl transition-all duration-500 ${i === active ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : "opacity-60 hover:opacity-100"
+                    }`}
                 >
                   <img src={img} alt="" loading="lazy" className="size-full object-cover" />
                 </button>

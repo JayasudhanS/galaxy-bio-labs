@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { collection, onSnapshot, type Timestamp } from "firebase/firestore";
 import { Reveal } from "@/components/motion/Reveal";
 import {
   Package,
@@ -6,34 +8,123 @@ import {
   MessageSquareText,
   Users,
 } from "lucide-react";
+import { getFirebaseDb } from "@/lib/firebase";
+import { MODULES } from "@/data/site";
 
 export const Route = createFileRoute("/admin/")({
   component: DashboardPage,
 });
 
+interface ActivityItem {
+  key: string;
+  text: string;
+  millis: number;
+}
+
+function toMillis(value: unknown): number {
+  if (!value) return 0;
+  if (typeof value === "string") {
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  }
+  const ts = value as Timestamp;
+  return typeof ts?.toDate === "function" ? ts.toDate().getTime() : 0;
+}
+
 function DashboardPage() {
+  const [productCount, setProductCount] = useState<number | null>(null);
+  const [quoteCount, setQuoteCount] = useState<number | null>(null);
+  const [userCount, setUserCount] = useState<number | null>(null);
+  const [activity, setActivity] = useState<ActivityItem[]>([]);
+  const [productActivity, setProductActivity] = useState<ActivityItem[]>([]);
+  const [quoteActivity, setQuoteActivity] = useState<ActivityItem[]>([]);
+
+  useEffect(() => {
+    const db = getFirebaseDb();
+
+    const unsubProducts = onSnapshot(
+      collection(db, "products"),
+      (snap) => {
+        setProductCount(snap.size);
+        setProductActivity(
+          snap.docs.map((d) => {
+            const data = d.data() as { title?: string; createdAt?: string };
+            return {
+              key: `product-${d.id}`,
+              text: `New product added: ${data.title ?? "Untitled product"}`,
+              millis: toMillis(data.createdAt),
+            };
+          }),
+        );
+      },
+      (err) => console.error("[AdminDashboard] products listener failed:", err),
+    );
+
+    const unsubQuotes = onSnapshot(
+      collection(db, "quoteRequests"),
+      (snap) => {
+        setQuoteCount(snap.size);
+        setQuoteActivity(
+          snap.docs.map((d) => {
+            const data = d.data() as { productName?: string; name?: string; createdAt?: Timestamp };
+            return {
+              key: `quote-${d.id}`,
+              text: `New quote request from ${data.name ?? "a customer"}${data.productName ? ` for ${data.productName}` : ""
+                }`,
+              millis: toMillis(data.createdAt),
+            };
+          }),
+        );
+      },
+      (err) => console.error("[AdminDashboard] quoteRequests listener failed:", err),
+    );
+
+    const unsubUsers = onSnapshot(
+      collection(db, "users"),
+      (snap) => setUserCount(snap.size),
+      (err) => console.error("[AdminDashboard] users listener failed:", err),
+    );
+
+    return () => {
+      unsubProducts();
+      unsubQuotes();
+      unsubUsers();
+    };
+  }, []);
+
+  useEffect(() => {
+    setActivity(
+      [...productActivity, ...quoteActivity]
+        .filter((item) => item.millis > 0)
+        .sort((a, b) => b.millis - a.millis)
+        .slice(0, 5),
+    );
+  }, [productActivity, quoteActivity]);
+
+  const fmt = (n: number | null) => (n === null ? "—" : n);
+
   const stats = [
     {
       label: "Total Products",
-      value: 0,
+      value: fmt(productCount),
       icon: Package,
       description: "Biological inputs, aquaculture & food products",
     },
     {
       label: "Total Categories",
-      value: 4, // Agri Inputs, Aquaculture, Ornamental Fish, Food Products
+      value: MODULES.length, // Agri Inputs, Aquaculture, Ornamental Fish, Food Products
       icon: FolderTree,
       description: "Fixed product categories",
     },
     {
       label: "Total Quotes",
-      value: 0,
+      value: fmt(quoteCount),
       icon: MessageSquareText,
       description: "Pending and processed quote requests",
     },
     {
       label: "Total Users",
-      value: 0,
+      value: fmt(userCount),
       icon: Users,
       description: "Registered administrators and customers",
     },
@@ -60,7 +151,7 @@ function DashboardPage() {
             >
               {/* Soft background hover effect */}
               <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              
+
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -81,13 +172,26 @@ function DashboardPage() {
           ))}
         </div>
 
-        {/* Recent Activity Placeholder (optional but makes layout premium) */}
-        <div className="rounded-3xl border border-border/50 bg-secondary/20 p-8 text-center">
-          <p className="font-display text-lg text-foreground/80">No recent activity</p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            New quote submissions and product catalog updates will appear here.
-          </p>
-        </div>
+        {/* Recent Activity */}
+        {activity.length === 0 ? (
+          <div className="rounded-3xl border border-border/50 bg-secondary/20 p-8 text-center">
+            <p className="font-display text-lg text-foreground/80">No recent activity</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              New quote submissions and product catalog updates will appear here.
+            </p>
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-border/50 bg-secondary/20 p-8">
+            <p className="font-display text-lg text-foreground/80">Recent activity</p>
+            <ul className="mt-4 space-y-3">
+              {activity.map((item) => (
+                <li key={item.key} className="text-sm text-muted-foreground">
+                  {item.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </Reveal>
   );

@@ -105,12 +105,9 @@ const spec = (a: string, b: string, c: string, d: string) => [
   { label: "Storage", value: d },
 ];
 
-export const PRODUCTS: Product[] = [];
-
-export const productsByCategory = (slug: string) => [];
-export const productBySlug = (slug: string) => undefined;
-export const FEATURED: Product[] = [];
-
+// Firestore ("products" collection, via src/lib/db-service.ts) is the
+// single source of truth for product data. No static/dummy product
+// arrays or lookup helpers live here anymore.
 export const HERO_SLIDES = [
   {
     image: heroAgri,
