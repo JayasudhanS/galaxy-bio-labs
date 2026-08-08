@@ -20,7 +20,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-[var(--forest-deep)]"
+      className="relative isolate flex min-h-[58svh] items-end overflow-hidden bg-[var(--forest-deep)] md:min-h-[64svh]"
       onMouseMove={(e) =>
         setPointer({
           x: (e.clientX / window.innerWidth - 0.5) * 22,
@@ -51,7 +51,7 @@ export function Hero() {
       </AnimatePresence>
       <div aria-hidden className="hero-veil absolute inset-0 -z-10" />
 
-      <div className="gbl-container relative w-full pb-20 pt-36 md:pb-28">
+      <div className="gbl-container relative w-full pb-10 pt-28 md:pb-14 md:pt-32">
         <div className="max-w-3xl">
           <AnimatePresence mode="wait">
             <motion.p
@@ -103,7 +103,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-16 flex items-end justify-between gap-8 border-t border-primary-foreground/15 pt-7">
+        <div className="mt-10 flex items-end justify-between gap-8 border-t border-primary-foreground/15 pt-7 md:mt-14">
           <div className="flex items-center gap-3">
             {HERO_SLIDES.map((s, i) => (
               <button
@@ -113,9 +113,8 @@ export function Hero() {
                 className="group relative h-px w-14 bg-primary-foreground/25"
               >
                 <span
-                  className={`absolute inset-y-0 left-0 bg-accent transition-all duration-700 ${
-                    i === index ? "w-full" : "w-0 group-hover:w-1/3"
-                  }`}
+                  className={`absolute inset-y-0 left-0 bg-accent transition-all duration-700 ${i === index ? "w-full" : "w-0 group-hover:w-1/3"
+                    }`}
                 />
               </button>
             ))}
