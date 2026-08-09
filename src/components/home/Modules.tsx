@@ -34,7 +34,7 @@ export function Modules() {
   }, []);
 
   return (
-    <section className="relative bg-[var(--forest-deep)] py-24 text-primary-foreground md:py-32">
+    <section className="relative bg-[var(--forest-deep)] pb-16 pt-10 text-primary-foreground sm:pb-24 sm:pt-16 md:py-32">
       <div className="gbl-container">
         <Reveal>
           <p className="eyebrow text-accent">Four modules</p>
@@ -45,7 +45,10 @@ export function Modules() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div
+          className="mt-6 grid gap-3 sm:mt-14 sm:gap-6"
+          style={{ gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}
+        >
           {MODULES.map((m, i) => {
             const count = counts ? counts[m.slug] : undefined;
             return (
@@ -61,7 +64,7 @@ export function Modules() {
                   params={{ category: m.slug }}
                   className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-primary-foreground/10 bg-primary-foreground/[0.03]"
                 >
-                  <div className="relative h-48 w-full overflow-hidden sm:h-56">
+                  <div className="relative h-24 w-full overflow-hidden sm:h-56">
                     <img
                       src={m.image}
                       alt={m.name}
@@ -74,25 +77,25 @@ export function Modules() {
                       aria-hidden
                       className="absolute inset-0 bg-gradient-to-t from-[var(--forest-deep)] via-[var(--forest-deep)]/10 to-transparent"
                     />
-                    <span className="absolute right-5 top-5 flex size-11 items-center justify-center rounded-full border border-primary-foreground/25 bg-[var(--forest-deep)]/60 backdrop-blur transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-[var(--forest-deep)]">
-                      <ArrowUpRight className="size-4" />
+                    <span className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full border border-primary-foreground/25 bg-[var(--forest-deep)]/60 backdrop-blur transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-[var(--forest-deep)] sm:right-5 sm:top-5 sm:size-11">
+                      <ArrowUpRight className="size-3 sm:size-4" />
                     </span>
-                    <span className="absolute left-5 top-5 font-display text-sm text-accent">{m.index}</span>
+                    <span className="absolute left-2 top-2 font-display text-xs text-accent sm:left-5 sm:top-5 sm:text-sm">{m.index}</span>
                   </div>
 
-                  <div className="flex flex-1 flex-col justify-between gap-6 p-7 md:p-8">
+                  <div className="flex flex-1 flex-col justify-between gap-3 p-3.5 sm:gap-6 sm:p-7 md:p-8">
                     <div>
-                      <h3 className="font-display text-2xl transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:translate-x-1 md:text-3xl">
+                      <h3 className="font-display text-base leading-tight transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:translate-x-1 sm:text-2xl md:text-3xl">
                         {m.name}
                       </h3>
-                      <p className="mt-2 max-w-sm text-sm leading-relaxed text-primary-foreground/55">
+                      <p className="mt-1.5 max-w-sm text-[0.7rem] leading-relaxed text-primary-foreground/55 sm:mt-2 sm:text-sm">
                         {m.headline}
                       </p>
                     </div>
 
-                    <div className="h-4 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-primary-foreground/45">
+                    <div className="h-3 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-primary-foreground/45 sm:h-4 sm:text-[0.7rem] sm:tracking-[0.2em]">
                       {count === undefined ? (
-                        <span className="inline-block h-3 w-20 animate-pulse rounded-full bg-primary-foreground/10" />
+                        <span className="inline-block h-3 w-16 animate-pulse rounded-full bg-primary-foreground/10 sm:w-20" />
                       ) : (
                         <span>
                           {count} {count === 1 ? "Product" : "Products"}

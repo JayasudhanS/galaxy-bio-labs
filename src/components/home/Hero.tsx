@@ -20,7 +20,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative isolate flex min-h-[58svh] items-end overflow-hidden bg-[var(--forest-deep)] md:min-h-[64svh]"
+      className="relative isolate flex min-h-[50svh] items-end overflow-hidden bg-[var(--forest-deep)] sm:min-h-[58svh] md:min-h-[64svh]"
       onMouseMove={(e) =>
         setPointer({
           x: (e.clientX / window.innerWidth - 0.5) * 22,
@@ -51,7 +51,7 @@ export function Hero() {
       </AnimatePresence>
       <div aria-hidden className="hero-veil absolute inset-0 -z-10" />
 
-      <div className="gbl-container relative w-full pb-10 pt-28 md:pb-14 md:pt-32">
+      <div className="gbl-container relative w-full pb-5 pt-16 sm:pb-10 sm:pt-28 md:pb-14 md:pt-32">
         <div className="max-w-3xl">
           <AnimatePresence mode="wait">
             <motion.p
@@ -60,7 +60,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.7, ease }}
-              className="flex items-center gap-4 text-[0.66rem] font-semibold uppercase tracking-[0.32em] text-primary-foreground/70"
+              className="flex items-center gap-3 text-[0.6rem] font-semibold uppercase tracking-[0.28em] text-primary-foreground/70 sm:gap-4 sm:text-[0.66rem] sm:tracking-[0.32em]"
             >
               <span className="h-px w-12 bg-accent" />
               {slide.kicker}
@@ -74,7 +74,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
               transition={{ duration: 1, ease }}
-              className="mt-7 max-w-2xl font-display text-[2.6rem] leading-[1.03] text-primary-foreground text-balance-tight sm:text-6xl lg:text-[4.4rem]"
+              className="mt-3 max-w-2xl font-display text-[1.85rem] leading-[1.08] text-primary-foreground text-balance-tight sm:mt-7 sm:text-6xl lg:text-[4.4rem]"
             >
               {slide.title}
             </motion.h1>
@@ -87,13 +87,13 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.9, ease, delay: 0.08 }}
-              className="mt-6 max-w-lg text-base leading-relaxed text-primary-foreground/70"
+              className="mt-3 max-w-lg text-sm leading-relaxed text-primary-foreground/70 line-clamp-2 sm:mt-6 sm:text-base sm:line-clamp-none"
             >
               {slide.copy}
             </motion.p>
           </AnimatePresence>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-5 flex flex-wrap items-center gap-3 sm:mt-10 sm:gap-4">
             <MagneticButton to="/products" variant="light">
               Explore products
             </MagneticButton>
@@ -103,7 +103,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-10 flex items-end justify-between gap-8 border-t border-primary-foreground/15 pt-7 md:mt-14">
+        <div className="mt-6 hidden items-end justify-between gap-8 border-t border-primary-foreground/15 pt-7 sm:mt-10 sm:flex md:mt-14">
           <div className="flex items-center gap-3">
             {HERO_SLIDES.map((s, i) => (
               <button

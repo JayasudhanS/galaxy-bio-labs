@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -69,7 +70,7 @@ function Login() {
       try {
         const target = role === "admin" ? "/admin" : "/";
         console.log("[Login] Redirecting to", target);
-        navigate({ to: target });
+        navigate({ to: target, replace: true });
       } catch (navErr) {
         console.warn("[Login] navigate() failed after successful sign-in:", navErr);
       }
