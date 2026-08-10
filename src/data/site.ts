@@ -16,7 +16,7 @@ export const COMPANY = {
   tagline: "Bio-science for living systems",
   blurb:
     "A research-led biosciences house formulating inputs for soil, water and table. Placeholder company copy — easily replaced later.",
-  email: "info.gbiolabs@gmail.com",
+  email: "Info@galaxybiolabs.in",
   phone: "+91 00000 00000",
   address: "Plot 14, Biotech Park, Hyderabad, India",
   hours: "Mon – Sat · 09:00 to 18:00",
