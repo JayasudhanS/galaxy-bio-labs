@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logoMark from "@/assets/logo-mark.png";
+import logoMark from "@/assets/Galaxy_logo.jpeg";
 
 export function Logo({ inverted = false }: { inverted?: boolean }) {
   return (
@@ -9,16 +9,14 @@ export function Logo({ inverted = false }: { inverted?: boolean }) {
       </span>
       <span className="leading-none">
         <span
-          className={`block font-display text-[1.05rem] tracking-tight ${
-            inverted ? "text-primary-foreground" : "text-foreground"
-          }`}
+          className={`block font-display text-[1.05rem] tracking-tight ${inverted ? "text-primary-foreground" : "text-foreground"
+            }`}
         >
           Galaxy Bio Labs
         </span>
         <span
-          className={`mt-1 block text-[0.58rem] uppercase tracking-[0.3em] ${
-            inverted ? "text-primary-foreground/60" : "text-muted-foreground"
-          }`}
+          className={`mt-1 block text-[0.58rem] uppercase tracking-[0.3em] ${inverted ? "text-primary-foreground/60" : "text-muted-foreground"
+            }`}
         >
           Bio Science
         </span>

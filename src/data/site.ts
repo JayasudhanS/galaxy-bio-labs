@@ -17,8 +17,8 @@ export const COMPANY = {
   blurb:
     "A research-led biosciences house formulating inputs for soil, water and table. Placeholder company copy — easily replaced later.",
   email: "Info@galaxybiolabs.in",
-  phone: "+91 00000 00000",
-  address: "Plot 14, Biotech Park, Hyderabad, India",
+  phone: "+91 99405 79585",
+  address: "52/7, 2/235C, Rajesh Nagar, Oomachikulam Main Road,15B, Mettupatti,Madurai - 625502,Tamil Nadu, India.",
   hours: "Mon – Sat · 09:00 to 18:00",
 };
 
@@ -141,10 +141,10 @@ export const GALLERY = [
 ];
 
 export const STATS = [
-  { value: 18, suffix: "+", label: "Years in bio-science" },
-  { value: 42, suffix: "", label: "Formulations in market" },
-  { value: 9600, suffix: "+", label: "Farms served" },
-  { value: 6, suffix: "", label: "States of distribution" },
+  { value: 10, suffix: "+", label: "Years in bio-science" },
+  { value: 40, suffix: "", label: "Formulations in market" },
+  { value: 900, suffix: "+", label: "Farms served" },
+  { value: 3, suffix: "", label: "States of distribution" },
 ];
 
 export { aboutLab, heroLab };

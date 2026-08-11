@@ -1,7 +1,39 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { COMPANY, MODULES } from "@/data/site";
-import logoMark from "@/assets/logo-mark.png";
+import logoMark from "@/assets/Galaxy_logo.jpeg";
+
+const SOCIAL_LINKS = [
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/dr.shanmuganandam4/",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    ),
+  },
+  {
+    name: "X (Twitter)",
+    href: "https://x.com/DrShanBJP",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" className="size-4">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.26 10.99h-6.478l-5.194-6.795-5.938 6.795H1.67l7.73-8.835L1.5 2.25h6.634l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/Drshanmuganandam",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+      </svg>
+    ),
+  },
+];
 
 export function Footer() {
   return (
@@ -20,6 +52,12 @@ export function Footer() {
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-primary-foreground/60">
             {COMPANY.blurb}
           </p>
+
+          <div className="mt-6 flex items-center gap-3">
+            {SOCIAL_LINKS.map((s) => {
+              return <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name} className="flex size-9 items-center justify-center rounded-full border border-primary-foreground/15 text-primary-foreground/60 transition-all duration-300 hover:border-accent hover:text-accent">{s.icon}</a>;
+            })}
+          </div>
         </div>
 
         <div>

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/motion/Reveal";
-import logoMark from "@/assets/logo-mark.png";
+import logoMark from "@/assets/Galaxy_logo.jpeg";
 import { heroLab } from "@/data/site";
 
 export function AuthLayout({
