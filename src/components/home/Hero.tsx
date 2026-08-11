@@ -51,7 +51,7 @@ export function Hero() {
       </AnimatePresence>
       <div aria-hidden className="hero-veil absolute inset-0 -z-10" />
 
-      <div className="gbl-container relative w-full pb-5 pt-16 sm:pb-10 sm:pt-28 md:pb-14 md:pt-32">
+      <div className="gbl-container relative w-full pb-3 pt-20 sm:pb-10 sm:pt-28 md:pb-14 md:pt-32">
         <div className="max-w-3xl">
           <AnimatePresence mode="wait">
             <motion.p
@@ -74,7 +74,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
               transition={{ duration: 1, ease }}
-              className="mt-3 max-w-2xl font-display text-[1.85rem] leading-[1.08] text-primary-foreground text-balance-tight sm:mt-7 sm:text-6xl lg:text-[4.4rem]"
+              className="mt-2 max-w-2xl font-display text-[1.65rem] leading-[1.12] text-primary-foreground text-balance-tight sm:mt-7 sm:text-6xl lg:text-[4.4rem]"
             >
               {slide.title}
             </motion.h1>
@@ -87,13 +87,13 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.9, ease, delay: 0.08 }}
-              className="mt-3 max-w-lg text-sm leading-relaxed text-primary-foreground/70 line-clamp-2 sm:mt-6 sm:text-base sm:line-clamp-none"
+              className="mt-2 max-w-lg text-[0.8rem] leading-relaxed text-primary-foreground/70 sm:mt-6 sm:text-base"
             >
               {slide.copy}
             </motion.p>
           </AnimatePresence>
 
-          <div className="mt-5 flex flex-wrap items-center gap-3 sm:mt-10 sm:gap-4">
+          <div className="mt-4 flex flex-wrap items-center gap-2.5 sm:mt-10 sm:gap-4">
             <MagneticButton to="/products" variant="light">
               Explore products
             </MagneticButton>
@@ -103,14 +103,14 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-6 hidden items-end justify-between gap-8 border-t border-primary-foreground/15 pt-7 sm:mt-10 sm:flex md:mt-14">
-          <div className="flex items-center gap-3">
+        <div className="mt-4 flex items-end justify-between gap-4 border-t border-primary-foreground/15 pt-4 sm:mt-10 sm:gap-8 sm:pt-7 md:mt-14">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {HERO_SLIDES.map((s, i) => (
               <button
                 key={s.kicker}
                 onClick={() => setIndex(i)}
                 aria-label={`Show slide ${i + 1}`}
-                className="group relative h-px w-14 bg-primary-foreground/25"
+                className="group relative h-px w-8 bg-primary-foreground/25 sm:w-14"
               >
                 <span
                   className={`absolute inset-y-0 left-0 bg-accent transition-all duration-700 ${i === index ? "w-full" : "w-0 group-hover:w-1/3"
@@ -122,9 +122,9 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-            className="flex items-center gap-3 text-[0.62rem] uppercase tracking-[0.28em] text-primary-foreground/55"
+            className="flex items-center gap-2 text-[0.55rem] uppercase tracking-[0.2em] text-primary-foreground/55 sm:gap-3 sm:text-[0.62rem] sm:tracking-[0.28em]"
           >
-            Scroll <ArrowDown className="size-3.5" />
+            Scroll <ArrowDown className="size-3 sm:size-3.5" />
           </motion.div>
         </div>
       </div>

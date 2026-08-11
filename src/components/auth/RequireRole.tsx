@@ -17,14 +17,14 @@ export function RequireRole({ role, children }: { role: UserRole; children: Reac
     if (loading) return;
     if (!user) {
       console.log("[RequireRole] No user after loading resolved, redirecting to /login");
-      navigate({ to: "/login" });
+      navigate({ to: "/login", replace: true });
       return;
     }
     if (currentRole !== role) {
       console.log(
         `[RequireRole] Role mismatch (need "${role}", have "${currentRole}"), redirecting to /`,
       );
-      navigate({ to: "/" });
+      navigate({ to: "/", replace: true });
     }
   }, [loading, user, currentRole, role, navigate]);
 

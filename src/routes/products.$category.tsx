@@ -3,7 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
 import { ProductTile } from "@/components/products/ProductTile";
-import { MODULES, moduleBySlug, productsByCategory, type Product } from "@/data/site";
+import { MODULES, moduleBySlug, type Product } from "@/data/site";
 import { QuoteCTA } from "@/components/home/QuoteCTA";
 import { getProductsByCategory } from "@/lib/db-service";
 

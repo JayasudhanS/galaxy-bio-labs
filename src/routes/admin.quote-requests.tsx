@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { collection, onSnapshot, orderBy, query, type Timestamp } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, type Timestamp } from "firebase/firestore";
 import { Reveal } from "@/components/motion/Reveal";
-import { MessageSquareOff, Loader2 } from "lucide-react";
+import { MessageSquareOff, Loader2, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { getFirebaseDb } from "@/lib/firebase";
 import { MODULES } from "@/data/site";
 
@@ -47,6 +48,24 @@ function categoryName(slug?: string | null) {
 function AdminQuoteRequestsPage() {
   const [requests, setRequests] = useState<QuoteRequest[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("Delete this quote request? This cannot be undone.")) return;
+    setDeletingId(id);
+    try {
+      const db = getFirebaseDb();
+      await deleteDoc(doc(db, "quoteRequests", id));
+      toast.success("Quote request deleted.");
+      // The onSnapshot listener below will remove it from the UI once
+      // Firestore confirms the delete — no local-only/optimistic removal.
+    } catch (err) {
+      console.error("[AdminQuoteRequests] Failed to delete quote request:", err);
+      toast.error("Failed to delete quote request. Please try again.");
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   useEffect(() => {
     const db = getFirebaseDb();
@@ -104,7 +123,7 @@ function AdminQuoteRequestsPage() {
               <table className="w-full min-w-[900px] text-left text-sm border-collapse">
                 <thead>
                   <tr className="border-b border-border/60 bg-secondary/30 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    {["Customer", "Contact", "Product", "Message", "Status", "Submitted"].map((col) => (
+                    {["Customer", "Contact", "Product", "Message", "Status", "Submitted", ""].map((col) => (
                       <th key={col} className="px-6 py-4.5">
                         {col}
                       </th>
@@ -138,6 +157,22 @@ function AdminQuoteRequestsPage() {
                       </td>
                       <td className="px-6 py-4 text-xs text-muted-foreground">
                         {formatDate(r.createdAt)}
+                      </td>
+                      <td className="px-6 py-4">
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(r.id)}
+                          disabled={deletingId === r.id}
+                          aria-label="Delete quote request"
+                          title="Delete quote request"
+                          className="flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:opacity-50"
+                        >
+                          {deletingId === r.id ? (
+                            <Loader2 className="size-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="size-4" />
+                          )}
+                        </button>
                       </td>
                     </tr>
                   ))}

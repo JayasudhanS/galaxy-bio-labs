@@ -99,12 +99,12 @@ function AuthRedirectGuard({ children }: { children: ReactNode }) {
       if (role === "admin") {
         if (!pathname.startsWith("/admin")) {
           console.log("[AuthRedirectGuard] Redirecting admin to /admin");
-          navigate({ to: "/admin" });
+          navigate({ to: "/admin", replace: true });
         }
       } else if (role === "user") {
         if (pathname.startsWith("/admin")) {
           console.log("[AuthRedirectGuard] Redirecting normal user to /");
-          navigate({ to: "/" });
+          navigate({ to: "/", replace: true });
         }
       }
       // role === null here would mean Firestore doc missing entirely;
@@ -112,7 +112,7 @@ function AuthRedirectGuard({ children }: { children: ReactNode }) {
     } else {
       if (pathname.startsWith("/admin")) {
         console.log("[AuthRedirectGuard] Redirecting unauthenticated visitor to /login");
-        navigate({ to: "/login" });
+        navigate({ to: "/login", replace: true });
       }
     }
   }, [user, role, loading, pathname, navigate]);

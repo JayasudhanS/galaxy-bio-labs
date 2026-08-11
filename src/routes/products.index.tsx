@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
 import { ProductTile } from "@/components/products/ProductTile";
-import { MODULES, PRODUCTS } from "@/data/site";
+import { MODULES } from "@/data/site";
 import { QuoteCTA } from "@/components/home/QuoteCTA";
 
 const title = "Products — Galaxy Bio Labs catalogue";

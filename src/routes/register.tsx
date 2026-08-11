@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
 import {
   AuthLayout,
@@ -48,6 +48,8 @@ const initialState: FormState = {
 function Register() {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormState>(initialState);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -174,25 +176,45 @@ function Register() {
         </label>
         <label className="block">
           <FieldLabel>Password</FieldLabel>
-          <input
-            type="password"
-            required
-            autoComplete="new-password"
-            value={form.password}
-            onChange={update("password")}
-            className={authInputClass}
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              required
+              autoComplete="new-password"
+              value={form.password}
+              onChange={update("password")}
+              className={`${authInputClass} pr-11`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+            </button>
+          </div>
         </label>
         <label className="block">
           <FieldLabel>Confirm password</FieldLabel>
-          <input
-            type="password"
-            required
-            autoComplete="new-password"
-            value={form.confirmPassword}
-            onChange={update("confirmPassword")}
-            className={authInputClass}
-          />
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              required
+              autoComplete="new-password"
+              value={form.confirmPassword}
+              onChange={update("confirmPassword")}
+              className={`${authInputClass} pr-11`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword((v) => !v)}
+              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+            </button>
+          </div>
         </label>
 
         {error && <p className="text-sm text-destructive">{error}</p>}
