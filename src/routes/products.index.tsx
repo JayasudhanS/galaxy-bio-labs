@@ -115,7 +115,7 @@ function ProductsIndex() {
             .
           </p>
         ) : (
-          <motion.div layout className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="mt-14 grid gap-3 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {results.map((p, i) => (
                 <ProductTile key={p.slug} product={p} index={i} />

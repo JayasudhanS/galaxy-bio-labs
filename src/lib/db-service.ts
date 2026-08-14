@@ -4,13 +4,13 @@ import {
   getDocs,
   getDoc,
   setDoc,
+  updateDoc,
   deleteDoc,
   query,
   where,
-  writeBatch,
 } from "firebase/firestore";
 import { getFirebaseDb } from "./firebase";
-import { PRODUCTS, type Product } from "../data/site";
+import { type Product } from "../data/site";
 
 const COLLECTION_NAME = "products";
 
@@ -81,4 +81,61 @@ export async function deleteProduct(slug: string) {
   if (typeof window === "undefined") return;
   const db = getFirebaseDb();
   await deleteDoc(doc(db, COLLECTION_NAME, slug));
+}
+
+// Used only by Admin → Gallery Images. Writes just the galleryImages field
+// (via updateDoc, not setDoc) so it can never overwrite the rest of the
+// product document — title, description, primary images, etc. all stay
+// exactly as they are.
+export async function updateProductGalleryImages(slug: string, galleryImages: string[]) {
+  if (typeof window === "undefined") return;
+  const db = getFirebaseDb();
+  const ref = doc(db, COLLECTION_NAME, slug);
+  await updateDoc(ref, {
+    galleryImages,
+    updatedAt: new Date().toISOString(),
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INDEPENDENT WEBSITE GALLERY  (Firestore collection: "gallery")
+// Completely separate from the products collection. No product data is read
+// or written by any of these functions.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface GalleryItem {
+  id: string;
+  url: string;       // base64 or remote URL
+  createdAt: string;
+}
+
+const GALLERY_COLLECTION = "gallery";
+
+export async function addGalleryItem(url: string): Promise<GalleryItem> {
+  const db = getFirebaseDb();
+  const id = `gallery_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  const item: GalleryItem = { id, url, createdAt: new Date().toISOString() };
+  await setDoc(doc(db, GALLERY_COLLECTION, id), item);
+  return item;
+}
+
+export async function getAllGalleryItems(): Promise<GalleryItem[]> {
+  if (typeof window === "undefined") return [];
+  try {
+    const db = getFirebaseDb();
+    const snap = await getDocs(collection(db, GALLERY_COLLECTION));
+    const items = snap.docs.map((d) => d.data() as GalleryItem);
+    // Sort oldest-first so the grid order is stable.
+    items.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    return items;
+  } catch (err) {
+    console.error("[DbService] Failed to get gallery items:", err);
+    return [];
+  }
+}
+
+export async function deleteGalleryItem(id: string): Promise<void> {
+  if (typeof window === "undefined") return;
+  const db = getFirebaseDb();
+  await deleteDoc(doc(db, GALLERY_COLLECTION, id));
 }

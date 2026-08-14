@@ -20,6 +20,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAddProductRouteImport } from './routes/admin.add-product'
+import { Route as AdminGalleryImagesRouteImport } from './routes/admin.gallery-images'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminQuoteRequestsRouteImport } from './routes/admin.quote-requests'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
@@ -83,6 +84,11 @@ const AdminAddProductRoute = AdminAddProductRouteImport.update({
   path: '/add-product',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminGalleryImagesRoute = AdminGalleryImagesRouteImport.update({
+  id: '/gallery-images',
+  path: '/gallery-images',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminProductsRoute = AdminProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin/add-product': typeof AdminAddProductRoute
+  '/admin/gallery-images': typeof AdminGalleryImagesRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/quote-requests': typeof AdminQuoteRequestsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -149,6 +156,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin/add-product': typeof AdminAddProductRoute
+  '/admin/gallery-images': typeof AdminGalleryImagesRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/quote-requests': typeof AdminQuoteRequestsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -170,6 +178,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin/add-product': typeof AdminAddProductRoute
+  '/admin/gallery-images': typeof AdminGalleryImagesRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/quote-requests': typeof AdminQuoteRequestsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -192,6 +201,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/admin/add-product'
+    | '/admin/gallery-images'
     | '/admin/products'
     | '/admin/quote-requests'
     | '/admin/settings'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/admin/add-product'
+    | '/admin/gallery-images'
     | '/admin/products'
     | '/admin/quote-requests'
     | '/admin/settings'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/admin/add-product'
+    | '/admin/gallery-images'
     | '/admin/products'
     | '/admin/quote-requests'
     | '/admin/settings'
@@ -335,6 +347,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAddProductRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/gallery-images': {
+      id: '/admin/gallery-images'
+      path: '/gallery-images'
+      fullPath: '/admin/gallery-images'
+      preLoaderRoute: typeof AdminGalleryImagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/products': {
       id: '/admin/products'
       path: '/products'
@@ -389,6 +408,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAddProductRoute: typeof AdminAddProductRoute
+  AdminGalleryImagesRoute: typeof AdminGalleryImagesRoute
   AdminProductsRoute: typeof AdminProductsRoute
   AdminQuoteRequestsRoute: typeof AdminQuoteRequestsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
@@ -398,6 +418,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAddProductRoute: AdminAddProductRoute,
+  AdminGalleryImagesRoute: AdminGalleryImagesRoute,
   AdminProductsRoute: AdminProductsRoute,
   AdminQuoteRequestsRoute: AdminQuoteRequestsRoute,
   AdminSettingsRoute: AdminSettingsRoute,

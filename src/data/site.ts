@@ -92,6 +92,8 @@ export interface Product {
   specifications: { label: string; value: string }[];
   usage: string;
   images: string[];
+  /** Separate, optional gallery-only photos (side view, packaging, etc). Never mixed into `images`, never used on product cards. */
+  galleryImages?: string[];
   featured?: boolean;
   status: "Active" | "Draft";
   createdAt: string;

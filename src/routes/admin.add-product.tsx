@@ -44,6 +44,7 @@ function AddProductPage() {
 
   // Preserved so editing an existing product doesn't silently wipe out
   // the richer fields it may already have (applications, benefits, usage,
+  // gallery images added via the separate Admin → Gallery Images page,
   // etc.) — this simplified form still doesn't expose those for editing.
   const [existingExtras, setExistingExtras] = useState<{
     applications: string;
@@ -52,9 +53,10 @@ function AddProductPage() {
     specifications: { label: string; value: string }[];
     status: "Active" | "Draft";
     featured: boolean;
+    galleryImages: string[];
   } | null>(null);
 
-  // Image upload state
+  // Image upload state (existing primary product image — unchanged)
   const [images, setImages] = useState<ImageItem[]>([]);
 
   // Load product if editing
@@ -78,6 +80,7 @@ function AddProductPage() {
             specifications: prod.specifications ?? [],
             status: prod.status,
             featured: !!prod.featured,
+            galleryImages: prod.galleryImages ?? [],
           });
         } else {
           toast.error("Product not found.");
@@ -185,7 +188,7 @@ function AddProductPage() {
     toast.info("Saving product...");
 
     try {
-      // 1. Process and compress new images to base64
+      // 1. Process and compress new primary images to base64
       const imageUrls: string[] = [];
       for (const img of images) {
         if (img.file) {
@@ -195,6 +198,7 @@ function AddProductPage() {
           imageUrls.push(img.url);
         }
       }
+
 
       // 2. Generate slug
       const slug = productId || name
@@ -215,6 +219,9 @@ function AddProductPage() {
         specifications: existingExtras?.specifications ?? [],
         usage: existingExtras?.usage ?? "",
         images: imageUrls,
+        // Not editable here — carried forward as-is so this form can never
+        // wipe out gallery images added via Admin → Gallery Images.
+        galleryImages: existingExtras?.galleryImages ?? [],
         featured: existingExtras?.featured ?? false,
         status: existingExtras?.status ?? "Active" as const,
         applications: existingExtras?.applications ?? "",

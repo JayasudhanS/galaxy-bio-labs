@@ -55,7 +55,7 @@ export function FeaturedProducts() {
           <p className="text-sm text-muted-foreground">No products available.</p>
         </div>
       ) : (
-        <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-3 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-4">
           {featured.map((p, i) => (
             <ProductTile key={p.slug} product={p} index={i} />
           ))}
