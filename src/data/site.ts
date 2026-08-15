@@ -1,10 +1,10 @@
 import heroAgri from "@/assets/hero-1.jpg";
 import heroAqua from "@/assets/hero-2.jpg";
 import heroLab from "@/assets/hero-3.jpg";
-import moduleAgri from "@/assets/module-agri.jpg";
-import moduleAqua from "@/assets/module-aqua.jpg";
-import moduleOrnamental from "@/assets/module-ornamental.jpg";
-import moduleFood from "@/assets/module-food.jpg";
+import moduleAgri from "@/assets/agri.jpeg";
+import moduleAqua from "@/assets/aquaculture.jpeg";
+import moduleOrnamental from "@/assets/ornamental.jpeg";
+import moduleFood from "@/assets/food.jpeg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -143,7 +143,7 @@ export const GALLERY = [
 ];
 
 export const STATS = [
-  { value: 10, suffix: "+", label: "Years in bio-science" },
+  { value: 30, suffix: "+", label: "Years in bio-science" },
   { value: 40, suffix: "", label: "Formulations in market" },
   { value: 900, suffix: "+", label: "Farms served" },
   { value: 3, suffix: "", label: "States of distribution" },

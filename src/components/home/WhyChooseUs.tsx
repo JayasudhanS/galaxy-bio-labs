@@ -3,6 +3,7 @@ import { FlaskConical, Leaf, ShieldCheck, Truck } from "lucide-react";
 import { STATS } from "@/data/site";
 import { Reveal, RevealText } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
+import logoMark from "@/assets/Galaxy_logo.jpeg";
 
 const REASONS = [
   {
@@ -46,9 +47,18 @@ export function WhyChooseUs() {
             </h2>
             <Reveal delay={0.2}>
               <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Placeholder positioning copy. Replace with the company's own credentials, certifications and
-                partner network when available.
+                
               </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <img
+                src={logoMark}
+                alt="Galaxy Bio Labs"
+                width={120}
+                height={120}
+                loading="lazy"
+                className="mt-8 size-16 rounded-full object-cover"
+              />
             </Reveal>
           </div>
 

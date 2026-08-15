@@ -5,6 +5,18 @@ import { type Product } from "@/data/site";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProductTile } from "@/components/products/ProductTile";
 
+const FEATURED_COUNT = 4;
+
+// Fisher-Yates shuffle — picks without repeats, unbiased.
+function pickRandom<T>(items: T[], count: number): T[] {
+  const pool = [...items];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j]!, pool[i]!];
+  }
+  return pool.slice(0, count);
+}
+
 export function FeaturedProducts() {
   const [featured, setFeatured] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -14,14 +26,18 @@ export function FeaturedProducts() {
     getAllProducts().then((list) => {
       if (!activeSub) return;
       if (list) {
-        setFeatured(list.filter((p) => p.featured && p.status === "Active"));
+        // Same real product set the Products page uses (all Active
+        // products) — this section just shows a random small sample of
+        // it, rather than relying on an unused "featured" flag.
+        const active = list.filter((p) => p.status === "Active");
+        setFeatured(pickRandom(active, FEATURED_COUNT));
       }
       setLoading(false);
     });
     return () => {
       activeSub = false;
     };
-  }, []);
+  }, []); 
 
   return (
     <section className="gbl-container py-24 md:py-32">
