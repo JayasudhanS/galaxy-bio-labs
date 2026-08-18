@@ -4,8 +4,8 @@ import { Reveal, RevealText } from "@/components/motion/Reveal";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { QuoteCTA } from "@/components/home/QuoteCTA";
 import { GALLERY } from "@/data/site";
-import DrShamuganandham from "@/assets/Dr.Shamuganandham.jpeg";
-import SathyaSubash from "@/assets/Mr.M.SATHYA SUBASH.jpeg";
+import DrShamuganandham from "@/assets/CEO.jpeg";
+import SathyaSubash from "@/assets/Marketing manager.jpeg";
 
 const title = "About Galaxy Bio Labs — MPEDA-certified aquaculture & agriculture solutions";
 const description =
@@ -39,24 +39,31 @@ function ProfileSection({
   paragraphs: string[];
 }) {
   return (
-    <div className="grid gap-8 sm:grid-cols-[220px_1fr] sm:items-start sm:gap-10">
-      <div className="mx-auto w-full max-w-[220px] overflow-hidden rounded-[1.75rem] bg-secondary sm:mx-0">
-        <img
-          src={imageSrc}
-          alt={imageAlt}
-          width={440}
-          height={550}
-          loading="lazy"
-          className="aspect-4/5 w-full object-cover"
-        />
-      </div>
-      <div>
+    <div>
+      <Reveal>
         <p className="eyebrow text-accent">{eyebrow}</p>
-        <h3 className="mt-3 font-display text-2xl leading-snug md:text-3xl">{name}</h3>
-        <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+      </Reveal>
+      <Reveal delay={0.05}>
+        <h3 className="mt-3 font-display text-3xl leading-snug md:text-4xl">{name}</h3>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           {designation}
         </p>
-        <div className="mt-5 space-y-3">
+      </Reveal>
+
+      <div className="mt-8 grid gap-8 sm:grid-cols-[240px_1fr] sm:items-start sm:gap-10">
+        <div className="mx-auto w-full max-w-[240px] overflow-hidden rounded-[1.75rem] bg-secondary sm:mx-0">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            width={480}
+            height={600}
+            loading="lazy"
+            className="aspect-4/5 w-full object-cover"
+          />
+        </div>
+        <div className="space-y-4">
           {paragraphs.map((p) => (
             <p key={p} className="text-sm leading-relaxed text-muted-foreground">
               {p}
@@ -135,19 +142,19 @@ function About() {
           </h2>
         </Reveal>
 
-        <div className="mt-12">
+                <div className="mt-12">
           <Reveal delay={0.1}>
             <ProfileSection
               eyebrow="Founder"
               imageSrc={DrShamuganandham}
-              imageAlt="Dr. P. Shanmuganandam, Founder of Galaxy Bio Labs"
+              imageAlt="Dr. P. Shanmuganandam, Founder & CEO of Galaxy Bio Labs"
               name="Dr. P. Shanmuganandam"
-              designation="Ph.D., CAS in Marine Biology — Founder, Galaxy Bio Labs"
+              designation="Founder & CEO, Galaxy Bio Labs"
               paragraphs={[
-                "Galaxy Bio Labs was established in 2005, founded by Dr. P. Shanmuganandam (Ph.D., CAS in Marine Biology), who has worked across more than three decades of research, consulting, and field experience around the world.",
-                "In 2005, he established the MPEDA-certified PCR Laboratory under the name of Galaxy Bio Labs.",
-                "He is an open-water PADI certified scuba diver and has reached a depth of 40m in the sea.",
-                "Ex. IMC member of ICAR-CIFT.",
+                "Galaxy Bio Labs (GBL) was established in 2005 by the great visionary Dr. P. Shanmuganandam who is presently the CEO of Galaxy Bio Labs (GBL), Madurai, Tamil Nadu, India. He is also the Founder & President of Galaxy Research Education and Alternative Technology (GREAT) trust aimed to bridge cutting-edge research with real-world impact to drive sustainable aquaculture and agriculture forward. He is a renowned entrepreneur and scientist in Aquaculture & Agro-industries with over 30 years of experience in India and abroad. He is actively being involved in organic agricultural rectification farming practice of Nammazhvar.",
+                "He holds a Master degree from Madurai Kamaraj University and earned a Ph.D., in Marine Biology from Annamalai University by working in a prestigious Indo-US project on marine bioactive compounds. Since then, he had more than 30 years of on and off field experiences in marine biotechnology and aquaculture. He had a PADI-certified Master Scuba Diver license, qualified to dive up to 40 meters depth.",
+                "He served as a scientist in Biotechnology department of Periyar University, Salem and an Institute Management Committee (IMC) member in ICAR-CIFT, Kochi. He gained expertise in tissue culture propagation of exotic seaweed, Kappaphycus from CSIR-CSMCRI, Mandapam, advanced PCR diagnostics from TANUVAS, Tuticorin and aquatic pathology from Mahidol University, Thailand and University Putra, Malaysia. Beyond his international research collaboration with about eleven countries, he had hands-on training in pearl, lobster, and mud crab cultures at Balai Perikanan Budidaya Laut (BPBL), Lombok, Indonesia.",
+                "He is deeply committed to sustainable coastal development initiatives. He spearheaded seaweed culture self-help groups (SHG) across the Tamil Nadu coastline, managed by PMMSY; handled ornamental fish hatchery project; participated in Tamil Nadu Water and Drainage Board's groundwater sanitation initiatives; worked alongside with Union Fisheries Minister's fisherman livelihood programs; involved in Fisherman Livelihood Programme with Fishery Minister Giri Raj Singh; participated in Fisherman \"Need Based Analysis\", part of Sagar Parikrama programme, conducted by CMFRI with Fisheries Minister Parshottam Rupala; partook in the conference conducted in CMFRI Mandapam with Hon Minister Prof. S. P. Sing Bagel and Tamil Nadu Fisheries Department personnel regarding Indo-Sri Lankan fisherman issues.",
               ]}
             />
           </Reveal>
@@ -165,15 +172,20 @@ function About() {
           </h2>
         </Reveal>
 
-        <div className="mt-12">
+                <div className="mt-12">
           <Reveal delay={0.1}>
             <ProfileSection
               eyebrow="Team"
               imageSrc={SathyaSubash}
-              imageAlt="Mr. M. Sathya Subash, Marketing Manager at Galaxy Bio Labs"
+              imageAlt="Mr. M. Sathya Subash, Chief Marketing Officer at Galaxy Bio Labs"
               name="Mr. M. Sathya Subash"
-              designation="B.Sc Botany — Marketing Manager"
-              paragraphs={[]}
+              designation="Chief Marketing Officer (CMO)"
+              paragraphs={[
+                "Mr. Sathya Subash is an accomplished business leader and visionary entrepreneur with a strong focus on crop protection solutions, plant nutrient management, precision agriculture, and sustainable farming. As a member of the leadership team at GBL, he has been passionately driving organizational improvement, strategic initiatives, and crisis management through his dynamic leadership, sound strategic insights, innovative vision, and strong people-management skills.",
+                "With diverse experience in precision agriculture, sustainability, human resources, agricultural field solutions, and problem-solving, Mr. Subash has taken on increasing responsibilities across Tamil Nadu, Kerala, Andhra Pradesh, Karnataka and Odisha over the past three years. His practical experience in agricultural field operations has enabled him to develop innovative and effective solutions that address farmers' challenges, improve farmer welfare, and support productive and sustainable farming practices.",
+                "At GBL, he has contributed to various divisions and strategic projects, bringing an innovative and forward-thinking approach to new opportunities and business development. His knowledge extends beyond conventional agriculture to emerging and sustainable sectors, including seaweed farming, ornamental fish hatchery management, micro-feed culture, and Black Soldier Fly (BSF) farming. This diverse expertise reflects his ability to explore innovative agricultural models and develop solutions aligned with evolving industry needs.",
+                "Mr. Subash is instrumental in executing strategic projects and delivering practical solutions that promote agricultural productivity, resource efficiency, and long-term sustainability through GBL's innovative products and initiatives. His combination of leadership, technical knowledge, field experience, and innovative vision makes him a valuable contributor to GBL's growth and the advancement of sustainable agricultural solutions.",
+              ]}
             />
           </Reveal>
         </div>

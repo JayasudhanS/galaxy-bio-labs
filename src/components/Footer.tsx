@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, FileText } from "lucide-react";
 import { COMPANY, MODULES } from "@/data/site";
 import logoMark from "@/assets/Galaxy_logo.jpeg";
 
@@ -98,7 +98,15 @@ export function Footer() {
 
         <div>
           <p className="text-[0.65rem] uppercase tracking-[0.24em] text-primary-foreground/45">Reach us</p>
-          <ul className="mt-5 space-y-4 text-sm text-primary-foreground/70">
+                    <ul className="mt-5 space-y-4 text-sm text-primary-foreground/70">
+            <li className="flex gap-3">
+              <FileText className="mt-0.5 size-4 shrink-0 text-accent" />
+              <span>COR NUMBER : MDU/ALG/WS/31/2023-2028</span>
+            </li>
+            <li className="flex gap-3">
+              <FileText className="mt-0.5 size-4 shrink-0 text-accent" />
+              <span>GST NO : 33BUUPS7714Q1Z1</span>
+            </li>
             <li className="flex gap-3">
               <MapPin className="mt-0.5 size-4 shrink-0 text-accent" />
               {COMPANY.address}

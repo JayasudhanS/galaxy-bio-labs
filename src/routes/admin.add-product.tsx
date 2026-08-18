@@ -37,10 +37,17 @@ function AddProductPage() {
   const [loadingProduct, setLoadingProduct] = useState(false);
   const [savingProduct, setSavingProduct] = useState(false);
 
-  const [name, setName] = useState("");
+    const [name, setName] = useState("");
   const [fullDescription, setFullDescription] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [category, setCategory] = useState<CategorySlug>("agri-inputs");
+
+  // Product Profile fields
+  const [composition, setComposition] = useState("");
+  const [recommendedCrops, setRecommendedCrops] = useState("");
+  const [advantages, setAdvantages] = useState("");
+  const [dosage, setDosage] = useState("");
+  const [packing, setPacking] = useState("");
 
   // Preserved so editing an existing product doesn't silently wipe out
   // the richer fields it may already have (applications, benefits, usage,
@@ -72,7 +79,12 @@ function AddProductPage() {
           setFullDescription(prod.fullDescription ?? prod.description);
           setShortDesc(prod.description);
           setCategory(prod.category);
-          setImages(prod.images.map((url) => ({ url })));
+                    setImages(prod.images.map((url) => ({ url })));
+          setComposition(prod.composition ?? "");
+          setRecommendedCrops(prod.recommendedCrops ?? "");
+          setAdvantages(prod.advantages ?? "");
+          setDosage(prod.dosage ?? "");
+          setPacking(prod.packing ?? "");
           setExistingExtras({
             applications: prod.applications ?? "",
             benefits: prod.benefits ?? [],
@@ -218,7 +230,12 @@ function AddProductPage() {
         benefits: existingExtras?.benefits ?? [],
         specifications: existingExtras?.specifications ?? [],
         usage: existingExtras?.usage ?? "",
-        images: imageUrls,
+                images: imageUrls,
+        composition: composition.trim(),
+        recommendedCrops: recommendedCrops.trim(),
+        advantages: advantages.trim(),
+        dosage: dosage.trim(),
+        packing: packing.trim(),
         // Not editable here — carried forward as-is so this form can never
         // wipe out gallery images added via Admin → Gallery Images.
         galleryImages: existingExtras?.galleryImages ?? [],
@@ -280,8 +297,8 @@ function AddProductPage() {
             <div className="space-y-4">
               {/* Product Title */}
               <div className="space-y-2">
-                <label htmlFor="prod-name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Product Title <span className="text-destructive">*</span>
+                                <label htmlFor="prod-name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Product Name <span className="text-destructive">*</span>
                 </label>
                 <input
                   id="prod-name"
@@ -353,6 +370,89 @@ function AddProductPage() {
               <p className="text-xs text-muted-foreground">
                 Determines which of the four storefront modules this product appears under.
               </p>
+            </div>
+          </div>
+
+                    {/* Section: Product Profile */}
+          <div className="space-y-6 rounded-3xl border border-border/50 bg-card p-6.5">
+            <h2 className="font-display text-xl text-foreground flex items-center gap-2">
+              <Info className="size-5 text-primary" />
+              Product Profile
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              Optional — shown on the product detail page only for the fields you fill in.
+            </p>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="composition" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Composition
+                </label>
+                <textarea
+                  id="composition"
+                  rows={3}
+                  value={composition}
+                  onChange={(e) => setComposition(e.target.value)}
+                  placeholder="e.g. Bacillus subtilis 1x10^8 CFU/g, carrier material..."
+                  className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="recommended-crops" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Recommended Crops
+                </label>
+                <textarea
+                  id="recommended-crops"
+                  rows={3}
+                  value={recommendedCrops}
+                  onChange={(e) => setRecommendedCrops(e.target.value)}
+                  placeholder="e.g. Paddy, cotton, sugarcane, vegetables..."
+                  className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="advantages" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Advantages
+                </label>
+                <textarea
+                  id="advantages"
+                  rows={3}
+                  value={advantages}
+                  onChange={(e) => setAdvantages(e.target.value)}
+                  placeholder="Key benefits of using this product..."
+                  className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="dosage" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Dosage
+                </label>
+                <textarea
+                  id="dosage"
+                  rows={3}
+                  value={dosage}
+                  onChange={(e) => setDosage(e.target.value)}
+                  placeholder="Recommended application rate..."
+                  className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="packing" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Packing
+                </label>
+                <input
+                  id="packing"
+                  type="text"
+                  value={packing}
+                  onChange={(e) => setPacking(e.target.value)}
+                  placeholder="e.g. 1kg, 5kg, 25kg bag"
+                  className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                />
+              </div>
             </div>
           </div>
 

@@ -86,8 +86,14 @@ export interface Product {
   description: string;
   /** Extended description shown in admin form; falls back to description on the public site. */
   fullDescription?: string;
-  /** Free-text applications field captured in the admin form. */
+    /** Free-text applications field captured in the admin form. */
   applications?: string;
+  /** Product Profile fields — admin-entered, shown on the product detail page only when present. */
+  composition?: string;
+  recommendedCrops?: string;
+  advantages?: string;
+  dosage?: string;
+  packing?: string;
   benefits: string[];
   specifications: { label: string; value: string }[];
   usage: string;

@@ -160,22 +160,57 @@ function ProductPage() {
               <p className="mt-5 text-base leading-relaxed text-muted-foreground">{product.description}</p>
             </Reveal>
 
-            {product.fullDescription && product.fullDescription.trim() && (
-              <Reveal delay={0.16}>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground/85">
-                  {product.fullDescription}
-                </p>
-              </Reveal>
-            )}
-
-            <Reveal delay={0.18}>
-              <div className="mt-8">
-                <MagneticButton onClick={() => open({ product: product.title, productId: product.slug, category: product.category })}>
-                  Get quote
-                </MagneticButton>
-              </div>
+                      {product.fullDescription && product.fullDescription.trim() && (
+            <Reveal delay={0.16}>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground/85">
+                {product.fullDescription}
+              </p>
             </Reveal>
-          </div>
+          )}
+
+          {(
+            [
+              ["Composition", product.composition],
+              ["Recommended Crops", product.recommendedCrops],
+              ["Advantages", product.advantages],
+              ["Dosage", product.dosage],
+              ["Packing", product.packing],
+            ] as const
+          ).some(([, value]) => value && value.trim()) && (
+            <div className="mt-8 space-y-5 border-t border-border pt-6">
+              {(
+                [
+                  ["Composition", product.composition],
+                  ["Recommended Crops", product.recommendedCrops],
+                  ["Advantages", product.advantages],
+                  ["Dosage", product.dosage],
+                  ["Packing", product.packing],
+                ] as const
+              ).map(([label, value]) =>
+                value && value.trim() ? (
+                  <Reveal key={label} delay={0.18}>
+                    <div>
+                      <h2 className="text-[0.68rem] uppercase tracking-[0.22em] text-muted-foreground">
+                        {label}
+                      </h2>
+                      <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-foreground/85">
+                        {value}
+                      </p>
+                    </div>
+                  </Reveal>
+                ) : null,
+              )}
+            </div>
+          )}
+
+                    <Reveal delay={0.24}>
+            <div className="mt-8">
+              <MagneticButton onClick={() => open({ product: product.title, productId: product.slug, category: product.category })}>
+                Get quote
+              </MagneticButton>
+            </div>
+          </Reveal>
+        </div>
         </div>
       </section>
 
