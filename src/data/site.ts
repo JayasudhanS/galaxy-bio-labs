@@ -15,7 +15,7 @@ export const COMPANY = {
   name: "Galaxy Bio Labs",
   tagline: "Bio-science for living systems",
   blurb:
-    "A research-led biosciences house formulating inputs for soil, water and table. Placeholder company copy — easily replaced later.",
+    "we specialize in manufacturing high-efficacy probiotics, seaweed based eco-restorative soil bio fertilizers,bio stimulants and bio pesticides to control various type of pests through eco friendly.",
   email: "Info@galaxybiolabs.in",
   phone: "+91 99405 79585",
   address: "52/7, 2/235C, Rajesh Nagar, Oomachikulam Main Road,15B, Mettupatti,Madurai - 625502,Tamil Nadu, India.",

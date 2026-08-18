@@ -100,11 +100,12 @@ function ProductPage() {
       </div>
 
       <section className="gbl-container py-12 md:py-16">
-        <div className="rounded-[2rem] border border-border/60 bg-card p-6 md:grid md:grid-cols-[260px_1fr] md:items-start md:gap-10 md:p-10 lg:grid-cols-[300px_1fr] lg:gap-14">
-          {/* Compact, controlled image column — fixed max width, never grows with the source image */}
-          <div className="mx-auto w-full max-w-[260px] md:mx-0 lg:max-w-[300px]">
+        <div className="rounded-[2rem] border border-border/60 bg-card p-6 md:grid md:grid-cols-[380px_1fr] md:items-start md:gap-10 md:p-10 lg:grid-cols-[460px_1fr] lg:gap-14">
+          {/* Spacious image column — wide + tall frame so the product feels like the visual centrepiece */}
+          <div className="mx-auto w-full max-w-[440px] md:mx-0 md:max-w-none">
             <div
-              className="relative aspect-square w-full overflow-hidden rounded-2xl bg-secondary"
+              className="relative w-full overflow-hidden rounded-2xl bg-secondary"
+              style={{ aspectRatio: "4/5" }}
               onTouchStart={(e) => {
                 const startX = e.touches[0]!.clientX;
                 const onEnd = (ev: TouchEvent) => {
@@ -120,13 +121,11 @@ function ProductPage() {
                   key={image}
                   src={image}
                   alt={product.title}
-                  width={600}
-                  height={600}
                   initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 size-full object-contain p-5"
+                  className="absolute inset-0 size-full object-contain p-6"
                 />
               </AnimatePresence>
             </div>
