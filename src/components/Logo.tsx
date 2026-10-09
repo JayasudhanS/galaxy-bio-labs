@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logoMark from "@/assets/Galaxy_logo.jpeg";
+import logoMark from "@/assets/Galaxy-bio-logo.jpeg";
 
 export function Logo({ inverted = false }: { inverted?: boolean }) {
   return (

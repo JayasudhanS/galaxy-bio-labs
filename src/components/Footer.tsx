@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, FileText } from "lucide-react";
 import { COMPANY, MODULES } from "@/data/site";
-import logoMark from "@/assets/Galaxy_logo.jpeg";
+import logoMark from "@/assets/Galaxy-bio-logo.jpeg";
 
 const SOCIAL_LINKS = [
   {

@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { FlaskConical, Leaf, ShieldCheck, Truck } from "lucide-react";
 import { STATS } from "@/data/site";
-import { Reveal, RevealText } from "@/components/motion/Reveal";
+import { Reveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
-import logoMark from "@/assets/Galaxy_logo.jpeg";
+import logoMark from "@/assets/Galaxy-bio-logo.jpeg";
 
 const REASONS = [
   {
@@ -39,17 +39,6 @@ export function WhyChooseUs() {
       <div className="gbl-container relative">
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <Reveal>
-              <p className="eyebrow">Why choose us</p>
-            </Reveal>
-            <h2 className="mt-5 font-display text-4xl leading-[1.08] md:text-5xl">
-              <RevealText text="Trust is built in the details nobody sees" />
-            </h2>
-            <Reveal delay={0.2}>
-              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
-                
-              </p>
-            </Reveal>
             <Reveal delay={0.3}>
               <img
                 src={logoMark}
