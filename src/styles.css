@@ -142,6 +142,50 @@
   --input: oklch(1 0 0 / 15%);
 }
 
+/* Fallback colours for older browsers (e.g. Chrome 109 on Windows 7) that cannot read oklch() */
+@supports not (color: oklch(0 0 0)) {
+  :root {
+    --forest: #0a5725;
+    --forest-deep: #072b14;
+    --leaf: #3da14b;
+    --gold: #d1a841;
+    --sand: #f5f0e6;
+    --ink: #0d170f;
+    --mist: #f7f8f4;
+    --background: #fcfcf9;
+    --card: #ffffff;
+    --popover: #ffffff;
+    --primary-foreground: #f9fbf5;
+    --muted: #f3f3ed;
+    --muted-foreground: #576158;
+    --destructive: #e7000b;
+    --destructive-foreground: #fafafa;
+    --border: #dddfd7;
+    --input: #dddfd7;
+    --chart-4: #118186;
+    --sidebar-foreground: #f1f3eb;
+    --sidebar-primary-foreground: #fcfcfc;
+    --sidebar-accent: #1b3824;
+    --sidebar-accent-foreground: #f1f3eb;
+    --sidebar-border: rgba(255, 255, 255, 0.1);
+  }
+  .dark {
+    --foreground: #f1f3eb;
+    --card: #1b3422;
+    --card-foreground: #f1f3eb;
+    --popover: #1b3422;
+    --popover-foreground: #f1f3eb;
+    --primary-foreground: #07150b;
+    --secondary: #233929;
+    --secondary-foreground: #f1f3eb;
+    --muted: #233929;
+    --muted-foreground: #aab1a4;
+    --accent-foreground: #0b1a0f;
+    --border: rgba(255, 255, 255, 0.12);
+    --input: rgba(255, 255, 255, 0.15);
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

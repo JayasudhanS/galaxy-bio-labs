@@ -7,7 +7,13 @@ export function Hero() {
         src={frontScreen}
         alt=""
         aria-hidden
-        className="absolute inset-0 -z-10 size-full scale-125 object-cover opacity-40 blur-2xl"
+                className="absolute inset-0 -z-10 size-full object-cover"
+        style={{
+          opacity: 0.4,
+          filter: "blur(40px)",
+          WebkitFilter: "blur(40px)",
+          transform: "scale(1.25)",
+        }}
       />
 
       <div className="gbl-container relative pb-6 sm:pb-10">
