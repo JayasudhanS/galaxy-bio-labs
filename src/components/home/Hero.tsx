@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { HERO_SLIDES } from "@/data/site";
-import frontScreen from "@/assets/front_screen.jpg";
+import frontScreen from "@/assets/front_screen_reorder.jpeg";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { useQuote } from "@/components/quote/QuoteProvider";
 
@@ -15,7 +15,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative isolate flex min-h-[50svh] items-end overflow-hidden bg-[var(--forest-deep)] sm:min-h-[58svh] md:min-h-[64svh]"
+      className="relative isolate flex min-h-[50svh] flex-col overflow-hidden bg-[var(--forest-deep)] sm:items-end sm:min-h-[58svh] md:min-h-[64svh]"
       onMouseMove={(e) =>
         setPointer({
           x: (e.clientX / window.innerWidth - 0.5) * 22,
@@ -23,7 +23,31 @@ export function Hero() {
         })
       }
     >
-      <div className="absolute inset-0 -z-10 scale-[1.02]">
+            {/* Mobile: complete image, no cropping, taller banner */}
+      <div className="relative mt-20 aspect-[4/3] w-full overflow-hidden sm:hidden">
+        <img
+          src={frontScreen}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 size-full scale-125 object-cover opacity-50 blur-2xl"
+        />
+                <img
+          src={frontScreen}
+          alt=""
+          className="relative size-full object-contain object-bottom"
+        />
+        <div className="absolute inset-x-0 top-0 z-10 px-4 pt-2 text-center">
+                    <p className="font-display text-[1.4rem] leading-tight text-primary-foreground">
+            Dr. P. Shanmuganandam
+          </p>
+          <p className="mt-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
+            Founder &amp; CEO, Galaxy Bio Labs
+          </p>
+        </div>
+      </div>
+
+      {/* Tablet / desktop: full background image */}
+      <div className="absolute inset-0 -z-10 hidden scale-[1.02] sm:block">
         <motion.img
           src={frontScreen}
           alt=""
@@ -35,9 +59,9 @@ export function Hero() {
           transition={{ type: "spring", stiffness: 40, damping: 20 }}
         />
       </div>
-      <div aria-hidden className="hero-veil absolute inset-0 -z-10" />
+      <div aria-hidden className="hero-veil absolute inset-0 -z-10 hidden sm:block" />
 
-      <div className="gbl-container relative w-full pb-3 pt-20 sm:pb-10 sm:pt-28 md:pb-14 md:pt-32">
+      <div className="gbl-container relative w-full pb-3 pt-6 sm:pb-10 sm:pt-28 md:pb-14 md:pt-32">
         <div className="max-w-3xl">
           <AnimatePresence mode="wait">
             <motion.p
