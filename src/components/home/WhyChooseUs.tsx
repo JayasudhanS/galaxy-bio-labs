@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { FlaskConical, Leaf, ShieldCheck, Truck } from "lucide-react";
-import { STATS } from "@/data/site";
+import { HERO_SLIDES, STATS } from "@/data/site";
 import { Reveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
+import { MagneticButton } from "@/components/motion/MagneticButton";
+import { useQuote } from "@/components/quote/QuoteProvider";
 import logoMark from "@/assets/Galaxy-bio-logo.jpeg";
 
 const REASONS = [
@@ -29,6 +31,9 @@ const REASONS = [
 ];
 
 export function WhyChooseUs() {
+  const { open } = useQuote();
+  const slide = HERO_SLIDES[2]!;
+
   return (
     <section className="relative overflow-hidden bg-secondary py-24 md:py-32">
       <div
@@ -39,7 +44,30 @@ export function WhyChooseUs() {
       <div className="gbl-container relative">
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
+            <Reveal>
+              <p className="eyebrow">{slide.kicker}</p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h1 className="mt-5 font-display text-4xl leading-[1.08] md:text-5xl">
+                {slide.title}
+              </h1>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
+                {slide.copy}
+              </p>
+            </Reveal>
             <Reveal delay={0.3}>
+              <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                <MagneticButton to="/products" variant="solid">
+                  Explore products
+                </MagneticButton>
+                <MagneticButton onClick={() => open()} variant="outline">
+                  Get a quote
+                </MagneticButton>
+              </div>
+            </Reveal>
+            <Reveal delay={0.4}>
               <img
                 src={logoMark}
                 alt="Galaxy Bio Labs"
